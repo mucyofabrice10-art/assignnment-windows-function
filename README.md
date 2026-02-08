@@ -132,20 +132,33 @@ Management can quickly see which items deserve priority stocking locally.
 Trend Example — Running Monthly Revenue
 
 This calculation shows how sales accumulate across months.
+SELECT
+    sales_month,
+    monthly_sales,
 
-SELECT month,
-       monthly_sales,
-       SUM(monthly_sales)
-         OVER (
-           ORDER BY month
-           ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
-         ) AS running_total
+    LAG(monthly_sales) OVER (
+        ORDER BY sales_month
+    ) AS prev_month,
+
+    monthly_sales
+      - LAG(monthly_sales) OVER (
+            ORDER BY sales_month
+        ) AS growth
+
 FROM (
-   SELECT TRUNC(transaction_date,'MM') AS month,
-          SUM(total_amount) AS monthly_sales
-   FROM transactions
-   GROUP BY TRUNC(transaction_date,'MM')
-);
+    SELECT
+        TRUNC(t.transaction_date, 'MM') AS sales_month,
+        SUM(t.quantity * p.UNIT_PRICE) AS monthly_sales
+    FROM transactions t
+    JOIN products p
+         ON t.product_id = p.product_id
+    GROUP BY TRUNC(t.transaction_date, 'MM')
+) m
+ORDER BY sales_month;
+
+
+ORDER BY sales_month;
+
 
 
 Why this matters:
@@ -160,17 +173,30 @@ Sudden plateaus or jumps signal operational or marketing changes.
 
 Navigation functions allow comparison between rows.
 
-SELECT month,
-       monthly_sales,
-       LAG(monthly_sales) OVER (ORDER BY month) AS prev_month,
-       monthly_sales - 
-       LAG(monthly_sales) OVER (ORDER BY month) AS growth
+SELECT
+    sales_month,
+    monthly_sales,
+
+    LAG(monthly_sales) OVER (
+        ORDER BY sales_month
+    ) AS prev_month,
+
+    monthly_sales
+      - LAG(monthly_sales) OVER (
+            ORDER BY sales_month
+        ) AS growth
+
 FROM (
-     SELECT TRUNC(transaction_date,'MM') AS month,
-            SUM(total_amount) AS monthly_sales
-     FROM transactions
-     GROUP BY TRUNC(transaction_date,'MM')
-);
+    SELECT
+        TRUNC(t.transaction_date, 'MM') AS sales_month,
+        SUM(t.quantity * p.UNIT_PRICE) AS monthly_sales
+    FROM transactions t
+    JOIN products p
+         ON t.product_id = p.product_id
+    GROUP BY TRUNC(t.transaction_date, 'MM')
+)
+ORDER BY sales_month;
+
 
 
 Interpretation:
@@ -185,14 +211,21 @@ Negative growth may indicate seasonal decline or inventory issues.
 
 Customers are grouped into four spending tiers.
 
-SELECT customer_id,
-       total_spent,
-       NTILE(4) OVER (ORDER BY total_spent DESC) AS quartile
+SELECT
+    customer_id,
+    total_spent,
+    NTILE(4) OVER (ORDER BY total_spent DESC) AS quartile
 FROM (
-     SELECT customer_id,
-            SUM(total_amount) AS total_spent
-     FROM transactions
-     GROUP BY customer_id
+    SELECT
+        t.customer_id,
+        SUM(t.quantity * p.UNIT_PRICE) AS total_spent
+    FROM transactions t
+    JOIN products p
+         ON t.product_id = p.product_id
+    GROUP BY t.customer_id
+)
+ORDER BY quartile, total_spent DESC;
+
 );
 
 
