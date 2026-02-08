@@ -282,3 +282,28 @@ SELECT
     END AS customer_segment
 FROM customer_spending
 ORDER BY total_spent;
+
+
+##CUME_STD()
+WITH customer_spending AS (
+    SELECT
+        t.customer_id,
+        SUM(t.quantity * p.price) AS total_spent
+    FROM transactions t
+    JOIN products p ON t.product_id = p.product_id
+    GROUP BY t.customer_id
+)
+SELECT
+    customer_id,
+    total_spent,
+    ROUND(CUME_DIST() OVER (ORDER BY total_spent), 3) AS cumulative_distribution,
+    ROUND(CUME_DIST() OVER (ORDER BY total_spent) * 100, 1) AS percentile_rank,
+    -- Segment by percentile
+    CASE
+        WHEN CUME_DIST() OVER (ORDER BY total_spent) <= 0.25 THEN 'Bottom 25%'
+        WHEN CUME_DIST() OVER (ORDER BY total_spent) <= 0.50 THEN '25-50%'
+        WHEN CUME_DIST() OVER (ORDER BY total_spent) <= 0.75 THEN '50-75%'
+        ELSE 'Top 25%'
+    END AS percentile_segment
+FROM customer_spending
+ORDER BY total_spent;
