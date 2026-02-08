@@ -1,4 +1,4 @@
-Step 1: Problem Definition (Detailed Explanation)
+ ##Step 1: Problem Definition (Detailed Explanation)
 
 The Problem Definition is the foundation of your SQL project. It explains what business problem you are solving, why it matters, and what insights are expected from your analysis. This step sets the tone for your queries and results, so it should be precise, measurable, and realistic.
 
@@ -20,7 +20,7 @@ Be concrete: mention the type of data involved (sales, transactions, customer in
 
 Explain the pain point or business question in 2–3 sentences.
 
-Expected Outcome
+ ##Expected Outcome
 
 Describe what decision or insight the analysis should provide.
 
