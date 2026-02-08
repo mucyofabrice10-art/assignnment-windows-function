@@ -341,3 +341,19 @@ FROM products p
 LEFT JOIN transactions t ON p.product_id = t.product_id
 WHERE t.transaction_id IS NULL
 ORDER BY p.price DESC;
+##FULL JOIN
+
+-- Customers and products that have/haven't interacted
+SELECT
+    CASE 
+        WHEN c.customer_id IS NULL THEN 'Product without customer'
+        WHEN p.product_id IS NULL THEN 'Customer without product'
+        ELSE 'Customer-Product pair'
+    END AS relationship_type,
+    c.customer_name,
+    p.product_name,
+    t.transaction_date
+FROM customers c
+FULL OUTER JOIN transactions t ON c.customer_id = t.customer_id
+FULL OUTER JOIN products p ON t.product_id = p.product_id
+ORDER BY relationship_type;
