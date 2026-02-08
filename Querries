@@ -241,3 +241,21 @@ SELECT
 FROM transactions t
 JOIN products p ON t.product_id = p.product_id
 ORDER BY t.transaction_date;
+
+
+##LEAD()
+
+SELECT
+    t.transaction_date,
+    (t.quantity * p.price) AS transaction_amount,
+    -- Get next day's amount
+    LEAD(t.quantity * p.price, 1) OVER (
+        ORDER BY t.transaction_date
+    ) AS next_day_amount,
+    -- Compare current to next (for planning)
+    LEAD(t.quantity * p.price, 1) OVER (
+        ORDER BY t.transaction_date
+    ) - (t.quantity * p.price) AS change_to_next_day
+FROM transactions t
+JOIN products p ON t.product_id = p.product_id
+ORDER BY t.transaction_date;
