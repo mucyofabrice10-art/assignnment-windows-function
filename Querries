@@ -1,3 +1,4 @@
+
 ```sql
 CREATE TABLE customers (
     customer_id NUMBER(5) PRIMARY KEY,
@@ -357,3 +358,4 @@ FROM customers c
 FULL OUTER JOIN transactions t ON c.customer_id = t.customer_id
 FULL OUTER JOIN products p ON t.product_id = p.product_id
 ORDER BY relationship_type;
+```
