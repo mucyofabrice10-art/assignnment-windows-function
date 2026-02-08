@@ -1,0 +1,60 @@
+Step 1: Problem Definition (Detailed Explanation)
+
+The Problem Definition is the foundation of your SQL project. It explains what business problem you are solving, why it matters, and what insights are expected from your analysis. This step sets the tone for your queries and results, so it should be precise, measurable, and realistic.
+
+Components of a Strong Problem Definition
+
+Business Context
+
+Describe the company or industry, including type, scale, and relevant department.
+
+Include who the users of your analysis are (e.g., marketing team, sales analysts).
+
+This gives context to why the data matters.
+
+Data Challenge
+
+Identify a specific problem or challenge the company faces.
+
+Be concrete: mention the type of data involved (sales, transactions, customer information).
+
+Explain the pain point or business question in 2–3 sentences.
+
+Expected Outcome
+
+Describe what decision or insight the analysis should provide.
+
+This links directly to your SQL and window function analysis.
+
+Focus on actionable insights, such as improving sales, targeting customers, or forecasting trends.
+
+Example: High-Scoring Problem Definition
+
+Business Context:
+RetailPro Analytics is a mid-sized retail company that sells electronics, clothing, and home goods across multiple regions. The marketing and sales departments need insights into customer buying behavior and product performance to make data-driven decisions.
+
+Data Challenge:
+The company has collected transactional data from over 10,000 customers and thousands of products. However, it is difficult to identify top-performing products per region, track monthly sales trends, and understand customer purchasing patterns without advanced analysis.
+
+Expected Outcome:
+The analysis will identify the top 5 products in each region, calculate running monthly sales totals, track month-over-month growth, segment customers into quartiles based on purchase behavior, and provide three-month moving averages. This will support targeted marketing campaigns and inventory planning decisions.
+
+Example: Low-Scoring Problem Definition (Avoid This)
+
+Business Context: Retail company.
+
+Data Challenge: Analyze sales data to find patterns.
+
+Expected Outcome: Identify trends.
+
+Why low-scoring? It’s too vague, lacks measurable goals, and does not clearly define what insights or decisions are expected.
+
+Tips for Writing Your Problem Definition
+
+Use specific numbers or categories (e.g., 10,000 customers, 500 products).
+
+Link your business problem to SQL and window functions (e.g., ranking, running totals, segmentation).
+
+Keep it professional and concise, but detailed enough to show understanding.
+
+Write in your own words to avoid plagiarism and meet academic integrity rules.
