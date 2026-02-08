@@ -330,3 +330,14 @@ GROUP BY c.customer_id, c.customer_name
 ORDER BY total_spent DESC;
 
 
+##RIGHT JOIN
+
+SELECT
+    p.product_id,
+    p.product_name,
+    p.category,
+    p.price
+FROM products p
+LEFT JOIN transactions t ON p.product_id = t.product_id
+WHERE t.transaction_id IS NULL
+ORDER BY p.price DESC;
