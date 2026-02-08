@@ -296,3 +296,18 @@ SELECT
 FROM transactions t
 JOIN products p ON t.product_id = p.product_id
 ORDER BY t.transaction_date;
+
+##INNER JOIN()
+-- Get only transactions where both customer AND product exist
+SELECT
+    t.transaction_id,
+    t.transaction_date,
+    c.customer_name,
+    p.product_name,
+    t.quantity,
+    p.price,
+    (t.quantity * p.price) AS total_amount
+FROM transactions t
+INNER JOIN customers c ON t.customer_id = c.customer_id
+INNER JOIN products p ON t.product_id = p.product_id
+ORDER BY t.transaction_date DESC;
