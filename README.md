@@ -1,7 +1,7 @@
-Course: Database Development with PL/SQL (INSY 8311)
+Course: Database Development 
 Student Name: Mucyo Fabrice
 Student ID: 29085
-Instructor: Eric Maniraguha
+
 
 ```sql
 
